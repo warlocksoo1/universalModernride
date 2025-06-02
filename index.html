@@ -1,382 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Universal Modern Ride</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
-  <style>
-    /* Reset & base */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
-    body {
-      background: #f4f7f9;
-      color: #333;
-      line-height: 1.6;
-    }
-    a {
-      color: #007bff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    h1, h2, h3, h4 {
-      font-weight: 600;
-      margin-bottom: 20px;
-      color: #222;
-    }
-    p {
-      margin-bottom: 20px;
-      font-weight: 300;
-    }
-    .btn-primary {
-      background: #007bff;
-      color: white;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s ease;
-      display: inline-block;
-      margin-top: 10px;
-    }
-    .btn-primary:hover {
-      background: #0056b3;
-    }
-
-    /* Hero */
-    #hero {
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
-      color: white;
-      height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-    }
-    #hero h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
-    }
-    #hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 30px;
-      text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-    }
-
-    /* Services */
-    #services {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .services-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 30px;
-    }
-    .service-item {
-      flex: 1 1 250px;
-      padding: 20px;
-      text-align: center;
-      border-radius: 10px;
-      background: #f9f9f9;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
-      cursor: default;
-    }
-    .service-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-    }
-    .service-icon {
-      font-size: 3rem;
-      margin-bottom: 15px;
-      color: #007bff;
-    }
-
-    /* Pricing */
-    #pricing {
-      margin-top: 40px;
-      text-align: center;
-    }
-    .pricing-cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .pricing-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      flex: 1 1 280px;
-      max-width: 300px;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.3s ease;
-    }
-    .pricing-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-    .pricing-card h3 {
-      margin-bottom: 15px;
-      color: #007bff;
-    }
-    .price {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: #222;
-    }
-    .period {
-      font-weight: 400;
-      color: #666;
-      margin-bottom: 25px;
-    }
-    .pricing-features {
-      list-style: none;
-      text-align: left;
-      width: 100%;
-      margin-bottom: 25px;
-      padding-left: 20px;
-      color: #555;
-    }
-    .pricing-features li {
-      margin-bottom: 12px;
-      position: relative;
-      padding-left: 20px;
-    }
-    .pricing-features li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: #007bff;
-      font-weight: 700;
-    }
-
-    /* Testimonials */
-    #testimonials {
-      margin-top: 60px;
-      background: #007bff;
-      color: white;
-      border-radius: 10px;
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .testimonial-item {
-      max-width: 700px;
-      margin: 20px auto;
-      font-style: italic;
-      font-weight: 300;
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-    .testimonial-author {
-      margin-top: 15px;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #cce4ff;
-    }
-
-    /* Contact */
-    #contact {
-      margin-top: 60px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      padding: 40px 20px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    #contact h2 {
-      margin-bottom: 25px;
-      color: #007bff;
-      text-align: center;
-    }
-    #contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    #contact input, #contact textarea {
-      padding: 12px 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      resize: vertical;
-    }
-    #contact button {
-      width: 100%;
-      background: #007bff;
-      color: white;
-      font-weight: 600;
-      padding: 14px 0;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    #contact button:hover {
-      background: #0056b3;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px 10px;
-      font-size: 0.9rem;
-      color: #666;
-      margin-top: 40px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .services-list {
-        flex-direction: column;
-      }
-      .pricing-cards {
-        flex-direction: column;
-      }
-      #hero h1 {
-        font-size: 2.2rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Modern Ride | Futuristic Vehicle Marketplace</title>
+    <!-- Three.js and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/webxr/VRButton.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/webxr/ARButton.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Your existing CSS here */
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Universal Modern Ride</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#showroom">Showroom</a>
+                <a href="#customize">Customize</a>
+                <a href="#repairs">Repairs</a>
+                <a href="#test-drive">Test Drive</a>
+                <a href="#community">Community</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
 
-  <!-- Hero Section -->
-  <section id="hero">
-    <h1>Universal Modern Ride</h1>
-    <p>Your seamless, reliable, and modern transportation solution anywhere, anytime.</p>
-    <a href="#contact" class="btn-primary">Book Your Ride</a>
-  </section>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>The Future of Mobility is Here</h1>
+            <p>Experience the next generation of transportation with our cutting-edge vehicles. From AI-driven cars to VTOL flying vehicles, we're redefining how you move.</p>
+            <a href="#showroom" class="cta-button">Explore Vehicles</a>
+        </div>
+    </section>
 
-  <!-- Services Section -->
-  <section id="services">
-    <h2>Our Services</h2>
-    <div class="services-list">
-      <div class="service-item">
-        <div class="service-icon">🚗</div>
-        <h3>Luxury Rides</h3>
-        <p>Experience comfort and style with our top-tier vehicles and professional drivers.</p>
-      </div>
-      <div class="service-item">
-        <div class="service-icon">♻️</div>
-        <h3>Eco-Friendly Rides</h3>
-        <p>Choose green travel options with our fleet of hybrid and electric vehicles.</p>
-      </div>
-      <div class="service-item">
-        <div class="service-icon">🛫</div>
-        <h3>Airport Transfers</h3>
-        <p>Reliable and timely pickups and drop-offs to ensure you never miss a flight.</p>
-      </div>
-      <div class="service-item">
-        <div class="service-icon">📅</div>
-        <h3>Scheduled Rides</h3>
-        <p>Book your ride in advance to fit your busy schedule with ease and convenience.</p>
-      </div>
-    </div>
-  </section>
+    <!-- Vehicle Categories -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">Our Vehicle Lineup</h2>
+        <div class="category-grid">
+            <!-- Card 1 -->
+            <div class="category-card">
+                <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+                <div class="category-info">
+                    <h3>Futuristic Cars</h3>
+                    <p>Autonomous, solar-powered, and hydrogen-fueled vehicles with AI co-pilots and self-healing exteriors.</p>
+                    <a href="#showroom" class="cta-button">View Models</a>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="category-card">
+                <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+                <div class="category-info">
+                    <h3>Smart Motorbikes</h3>
+                    <p>Self-balancing hoverbikes, electric speedsters with AR helmets, and AI-controlled cruisers.</p>
+                    <a href="#showroom" class="cta-button">View Models</a>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="category-card">
+                <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+                <div class="category-info">
+                    <h3>Flying Cars (VTOLs)</h3>
+                    <p>Urban air mobility solutions that let you soar above traffic with ease and safety.</p>
+                    <a href="#showroom" class="cta-button">View Models</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Pricing Section -->
-  <section id="pricing">
-    <h2>Pricing Plans</h2>
-    <div class="pricing-cards">
-      <div class="pricing-card">
-        <h3>Basic</h3>
-        <div class="price">$49</div>
-        <div class="period">per ride</div>
-        <ul class="pricing-features">
-          <li>Up to 10 km</li>
-          <li>Standard vehicles</li>
-          <li>1 Free Booking Update</li>
-          <li>Basic support</li>
-        </ul>
-        <button class="btn-primary">Choose Basic</button>
-      </div>
-      <div class="pricing-card">
-        <h3>Premium</h3>
-        <div class="price">$99</div>
-        <div class="period">per ride</div>
-        <ul class="pricing-features">
-          <li>Up to 25 km</li>
-          <li>Luxury vehicles</li>
-          <li>3 Free Booking Updates</li>
-          <li>Priority support</li>
-        </ul>
-        <button class="btn-primary">Choose Premium</button>
-      </div>
-      <div class="pricing-card">
-        <h3>Ultimate</h3>
-        <div class="price">$199</div>
-        <div class="period">per ride</div>
-        <ul class="pricing-features">
-          <li>Unlimited distance</li>
-          <li>Premium luxury vehicles</li>
-          <li>Unlimited Booking Updates</li>
-          <li>24/7 Dedicated support</li>
-        </ul>
-        <button class="btn-primary">Choose Ultimate</button>
-      </div>
-    </div>
-  </section>
+    <!-- 3D Showroom Section -->
+    <section class="showroom" id="showroom">
+        <h2 class="section-title">Immersive 3D Showroom</h2>
+        <div class="showroom-container">
+            <div class="vehicle-viewer" id="vehicle-viewer">
+                <div class="loader"></div>
+                <div id="3d-container" style="width: 100%; height: 100%;"></div>
+            </div>
+            <div class="vehicle-controls">
+                <button class="cta-button" id="rotate-btn">Rotate</button>
+                <button class="cta-button" id="interior-btn">Interior View</button>
+                <button class="cta-button" id="vr-btn">VR Mode</button>
+                <button class="cta-button" id="ar-btn">AR Preview</button>
+            </div>
+            <div class="vehicle-selector">
+                <div class="vehicle-option active" data-model="car">Nexus X-2000 (Car)</div>
+                <div class="vehicle-option" data-model="bike">HoverBike S1</div>
+                <div class="vehicle-option" data-model="vtol">AeroV Mark 3 (VTOL)</div>
+                <div class="vehicle-option" data-model="solar">Solaris E-Cruiser</div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Testimonials Section -->
-  <section id="testimonials">
-    <h2>What Our Riders Say</h2>
-    <div class="testimonial-item">
-      <p>"Universal Modern Ride made my daily commute comfortable and hassle-free. The drivers are professional and the cars immaculate."</p>
-      <div class="testimonial-author">– Sarah K.</div>
-    </div>
-    <div class="testimonial-item">
-      <p>"I love their eco-friendly options. It’s great to travel knowing I’m reducing my carbon footprint."</p>
-      <div class="testimonial-author">– Michael B.</div>
-    </div>
-    <div class="testimonial-item">
-      <p>"Their airport transfer service is punctual and convenient. Highly recommend to anyone who travels frequently."</p>
-      <div class="testimonial-author">– Anna L.</div>
-    </div>
-  </section>
+    <!-- Customization Section -->
+    <section class="customization" id="customize">
+        <h2 class="section-title">Build Your Dream Vehicle</h2>
+        <div class="customization-grid">
+            <div class="customization-preview" id="custom-preview">
+                <div class="loader"></div>
+                <div id="custom-3d-container" style="width: 100%; height: 100%;"></div>
+            </div>
+            <div class="customization-options">
+                <div class="option-group">
+                    <h4>Exterior</h4>
+                    <div class="option-buttons">
+                        <div class="option-button active" data-color="0x3498db">Quantum Blue</div>
+                        <div class="option-button" data-color="0xe74c3c">Solar Flare</div>
+                        <div class="option-button" data-color="0x2c3e50">Midnight Black</div>
+                        <div class="option-button" data-color="0x9b59b6">Chameleon Coat</div>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <h4>Interior</h4>
+                    <div class="option-buttons">
+                        <div class="option-button active" data-interior="leather">Neo-Leather</div>
+                        <div class="option-button" data-interior="mesh">Zero-G Mesh</div>
+                        <div class="option-button" data-interior="holographic">Holographic Weave</div>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <h4>Performance</h4>
+                    <div class="option-buttons">
+                        <div class="option-button active" data-performance="standard">Standard</div>
+                        <div class="option-button" data-performance="boost">Boost Package</div>
+                        <div class="option-button" data-performance="hyper">Hyperdrive</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form action="https://formspree.io/f/xbljvvlg" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <input type="tel" name="phone" placeholder="Your Phone Number" />
-      <input type="text" name="subject" placeholder="Subject" />
-      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+    <!-- Test Drive Section -->
+    <section class="test-drive" id="test-drive">
+        <h2 class="section-title">Experience the Future</h2>
+        <p>Book a virtual or in-person test drive with our cutting-edge vehicles.</p>
+        <div class="test-drive-options">
+            <div class="test-drive-card">
+                <h3>Virtual Reality Test</h3>
+                <p>Experience our vehicles in fully immersive VR from anywhere.</p>
+                <button class="cta-button">Book VR Session</button>
+            </div>
+            <div class="test-drive-card">
+                <h3>Augmented Reality Demo</h3>
+                <p>Preview vehicles in your own space using AR technology.</p>
+                <button class="cta-button">Try AR Mode</button>
+            </div>
+            <div class="test-drive-card">
+                <h3>In-Person Experience</h3>
+                <p>Visit our flagship showroom for a real-world test drive.</p>
+                <button class="cta-button">Schedule Visit</button>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    &copy; 2025 Universal Modern Ride. All rights reserved.
-  </footer>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Universal Modern Ride</h3>
+                <p>Redefining mobility for the 22nd century and beyond.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#showroom">Showroom</a></li>
+                    <li><a href="#customize">Customize</a></li>
+                    <li><a href="#test-drive">Test Drive</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Universal Modern Ride. All rights reserved.</p>
+        </div>
+    </footer>
 
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Main JavaScript File -->
+    <script src="js/main.js"></script>
 </body>
 </html>
