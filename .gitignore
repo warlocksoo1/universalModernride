@@ -1,5 +1,6 @@
 node_modules/
-.DS_Store
-.env
 .env
 .DS_Store
+*.log
+*.blend
+*.fbx
