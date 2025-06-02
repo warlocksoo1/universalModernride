@@ -3,25 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore futuristic vehicles with Universal Modern Ride - AI-driven cars, hoverbikes, and VTOL flying vehicles">
     <title>Universal Modern Ride | Futuristic Vehicle Marketplace</title>
-    <!-- Three.js and dependencies -->
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" as="style">
+    <link rel="preload" href="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" as="image">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Three.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/webxr/VRButton.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/webxr/ARButton.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Your existing CSS here */
-    </style>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Preconnect to CDNs -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
 </head>
 <body>
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+    
     <!-- Header -->
     <header>
-        <nav>
-            <div class="logo">Universal Modern Ride</div>
+        <nav aria-label="Main navigation">
+            <div class="logo" aria-label="Universal Modern Ride">Universal Modern Ride</div>
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#showroom">Showroom</a>
@@ -43,134 +68,140 @@
         </div>
     </section>
 
-    <!-- Vehicle Categories -->
-    <section class="categories" id="categories">
-        <h2 class="section-title">Our Vehicle Lineup</h2>
-        <div class="category-grid">
-            <!-- Card 1 -->
-            <div class="category-card">
-                <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-                <div class="category-info">
-                    <h3>Futuristic Cars</h3>
-                    <p>Autonomous, solar-powered, and hydrogen-fueled vehicles with AI co-pilots and self-healing exteriors.</p>
-                    <a href="#showroom" class="cta-button">View Models</a>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="category-card">
-                <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-                <div class="category-info">
-                    <h3>Smart Motorbikes</h3>
-                    <p>Self-balancing hoverbikes, electric speedsters with AR helmets, and AI-controlled cruisers.</p>
-                    <a href="#showroom" class="cta-button">View Models</a>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="category-card">
-                <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-                <div class="category-info">
-                    <h3>Flying Cars (VTOLs)</h3>
-                    <p>Urban air mobility solutions that let you soar above traffic with ease and safety.</p>
-                    <a href="#showroom" class="cta-button">View Models</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3D Showroom Section -->
-    <section class="showroom" id="showroom">
-        <h2 class="section-title">Immersive 3D Showroom</h2>
-        <div class="showroom-container">
-            <div class="vehicle-viewer" id="vehicle-viewer">
-                <div class="loader"></div>
-                <div id="3d-container" style="width: 100%; height: 100%;"></div>
-            </div>
-            <div class="vehicle-controls">
-                <button class="cta-button" id="rotate-btn">Rotate</button>
-                <button class="cta-button" id="interior-btn">Interior View</button>
-                <button class="cta-button" id="vr-btn">VR Mode</button>
-                <button class="cta-button" id="ar-btn">AR Preview</button>
-            </div>
-            <div class="vehicle-selector">
-                <div class="vehicle-option active" data-model="car">Nexus X-2000 (Car)</div>
-                <div class="vehicle-option" data-model="bike">HoverBike S1</div>
-                <div class="vehicle-option" data-model="vtol">AeroV Mark 3 (VTOL)</div>
-                <div class="vehicle-option" data-model="solar">Solaris E-Cruiser</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Customization Section -->
-    <section class="customization" id="customize">
-        <h2 class="section-title">Build Your Dream Vehicle</h2>
-        <div class="customization-grid">
-            <div class="customization-preview" id="custom-preview">
-                <div class="loader"></div>
-                <div id="custom-3d-container" style="width: 100%; height: 100%;"></div>
-            </div>
-            <div class="customization-options">
-                <div class="option-group">
-                    <h4>Exterior</h4>
-                    <div class="option-buttons">
-                        <div class="option-button active" data-color="0x3498db">Quantum Blue</div>
-                        <div class="option-button" data-color="0xe74c3c">Solar Flare</div>
-                        <div class="option-button" data-color="0x2c3e50">Midnight Black</div>
-                        <div class="option-button" data-color="0x9b59b6">Chameleon Coat</div>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Vehicle Categories -->
+        <section class="categories" id="categories">
+            <h2 class="section-title">Our Vehicle Lineup</h2>
+            <div class="category-grid">
+                <article class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');" 
+                         aria-label="Futuristic car"></div>
+                    <div class="category-info">
+                        <h3>Futuristic Cars</h3>
+                        <p>Autonomous, solar-powered, and hydrogen-fueled vehicles with AI co-pilots and self-healing exteriors.</p>
+                        <a href="#showroom" class="cta-button">View Models</a>
                     </div>
-                </div>
-                <div class="option-group">
-                    <h4>Interior</h4>
-                    <div class="option-buttons">
-                        <div class="option-button active" data-interior="leather">Neo-Leather</div>
-                        <div class="option-button" data-interior="mesh">Zero-G Mesh</div>
-                        <div class="option-button" data-interior="holographic">Holographic Weave</div>
+                </article>
+                
+                <article class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');" 
+                         aria-label="Smart motorbike"></div>
+                    <div class="category-info">
+                        <h3>Smart Motorbikes</h3>
+                        <p>Self-balancing hoverbikes, electric speedsters with AR helmets, and AI-controlled cruisers.</p>
+                        <a href="#showroom" class="cta-button">View Models</a>
                     </div>
-                </div>
-                <div class="option-group">
-                    <h4>Performance</h4>
-                    <div class="option-buttons">
-                        <div class="option-button active" data-performance="standard">Standard</div>
-                        <div class="option-button" data-performance="boost">Boost Package</div>
-                        <div class="option-button" data-performance="hyper">Hyperdrive</div>
+                </article>
+                
+                <article class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');" 
+                         aria-label="Flying car"></div>
+                    <div class="category-info">
+                        <h3>Flying Cars (VTOLs)</h3>
+                        <p>Urban air mobility solutions that let you soar above traffic with ease and safety.</p>
+                        <a href="#showroom" class="cta-button">View Models</a>
                     </div>
-                </div>
+                </article>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Test Drive Section -->
-    <section class="test-drive" id="test-drive">
-        <h2 class="section-title">Experience the Future</h2>
-        <p>Book a virtual or in-person test drive with our cutting-edge vehicles.</p>
-        <div class="test-drive-options">
-            <div class="test-drive-card">
-                <h3>Virtual Reality Test</h3>
-                <p>Experience our vehicles in fully immersive VR from anywhere.</p>
-                <button class="cta-button">Book VR Session</button>
+        <!-- 3D Showroom Section -->
+        <section class="showroom" id="showroom">
+            <h2 class="section-title">Immersive 3D Showroom</h2>
+            <div class="showroom-container">
+                <div class="vehicle-viewer" id="vehicle-viewer">
+                    <div class="loader" aria-hidden="true"></div>
+                    <div id="3d-container" style="width: 100%; height: 100%;" aria-live="polite"></div>
+                </div>
+                <div class="vehicle-controls">
+                    <button class="cta-button" id="rotate-btn" aria-label="Rotate vehicle">Rotate</button>
+                    <button class="cta-button" id="interior-btn" aria-label="View interior">Interior View</button>
+                    <button class="cta-button" id="vr-btn" aria-label="Enter VR mode">VR Mode</button>
+                    <button class="cta-button" id="ar-btn" aria-label="Launch AR preview">AR Preview</button>
+                </div>
+                <div class="vehicle-selector" role="tablist">
+                    <button class="vehicle-option active" data-model="car" role="tab" aria-selected="true">Nexus X-2000 (Car)</button>
+                    <button class="vehicle-option" data-model="bike" role="tab" aria-selected="false">HoverBike S1</button>
+                    <button class="vehicle-option" data-model="vtol" role="tab" aria-selected="false">AeroV Mark 3 (VTOL)</button>
+                    <button class="vehicle-option" data-model="solar" role="tab" aria-selected="false">Solaris E-Cruiser</button>
+                </div>
             </div>
-            <div class="test-drive-card">
-                <h3>Augmented Reality Demo</h3>
-                <p>Preview vehicles in your own space using AR technology.</p>
-                <button class="cta-button">Try AR Mode</button>
+        </section>
+
+        <!-- Customization Section -->
+        <section class="customization" id="customize">
+            <h2 class="section-title">Build Your Dream Vehicle</h2>
+            <div class="customization-grid">
+                <div class="customization-preview" id="custom-preview">
+                    <div class="loader" aria-hidden="true"></div>
+                    <div id="custom-3d-container" style="width: 100%; height: 100%;" aria-live="polite"></div>
+                </div>
+                <div class="customization-options">
+                    <fieldset class="option-group">
+                        <legend><h4>Exterior</h4></legend>
+                        <div class="option-buttons">
+                            <button class="option-button active" data-color="0x3498db">Quantum Blue</button>
+                            <button class="option-button" data-color="0xe74c3c">Solar Flare</button>
+                            <button class="option-button" data-color="0x2c3e50">Midnight Black</button>
+                            <button class="option-button" data-color="0x9b59b6">Chameleon Coat</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="option-group">
+                        <legend><h4>Interior</h4></legend>
+                        <div class="option-buttons">
+                            <button class="option-button active" data-interior="leather">Neo-Leather</button>
+                            <button class="option-button" data-interior="mesh">Zero-G Mesh</button>
+                            <button class="option-button" data-interior="holographic">Holographic Weave</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="option-group">
+                        <legend><h4>Performance</h4></legend>
+                        <div class="option-buttons">
+                            <button class="option-button active" data-performance="standard">Standard</button>
+                            <button class="option-button" data-performance="boost">Boost Package</button>
+                            <button class="option-button" data-performance="hyper">Hyperdrive</button>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
-            <div class="test-drive-card">
-                <h3>In-Person Experience</h3>
-                <p>Visit our flagship showroom for a real-world test drive.</p>
-                <button class="cta-button">Schedule Visit</button>
+        </section>
+
+        <!-- Test Drive Section -->
+        <section class="test-drive" id="test-drive">
+            <h2 class="section-title">Experience the Future</h2>
+            <p>Book a virtual or in-person test drive with our cutting-edge vehicles.</p>
+            <div class="test-drive-options">
+                <article class="test-drive-card">
+                    <h3>Virtual Reality Test</h3>
+                    <p>Experience our vehicles in fully immersive VR from anywhere.</p>
+                    <button class="cta-button">Book VR Session</button>
+                </article>
+                <article class="test-drive-card">
+                    <h3>Augmented Reality Demo</h3>
+                    <p>Preview vehicles in your own space using AR technology.</p>
+                    <button class="cta-button">Try AR Mode</button>
+                </article>
+                <article class="test-drive-card">
+                    <h3>In-Person Experience</h3>
+                    <p>Visit our flagship showroom for a real-world test drive.</p>
+                    <button class="cta-button">Schedule Visit</button>
+                </article>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="footer-grid">
             <div class="footer-column">
                 <h3>Universal Modern Ride</h3>
                 <p>Redefining mobility for the 22nd century and beyond.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="footer-column">
@@ -191,16 +222,39 @@
                     <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email" required aria-label="Email for newsletter">
+                    <button type="submit" class="cta-button">Subscribe</button>
+                </form>
+            </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2023 Universal Modern Ride. All rights reserved.</p>
+            <p>&copy; <span id="current-year">2023</span> Universal Modern Ride. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
-    <!-- Main JavaScript File -->
+    <!-- Modal for AR/VR -->
+    <div class="modal" id="xr-modal">
+        <span class="close-modal" aria-label="Close modal">&times;</span>
+        <div class="modal-content" id="xr-container"></div>
+    </div>
+
+    <!-- JavaScript -->
     <script src="js/main.js"></script>
+    
+    <!-- Inline script for critical functionality -->
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            document.querySelector('.nav-links').style.display = expanded ? 'none' : 'flex';
+        });
+    </script>
 </body>
 </html>
