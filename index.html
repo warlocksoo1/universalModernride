@@ -3,578 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Future Rides</title>
-    <style>
-        :root {
-            --primary: #00c3ff;
-            --secondary: #7b2dff;
-            --dark: #0a0a1a;
-            --light: #f0f8ff;
-            --accent: #ff4d7b;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 1.5rem;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 0.5rem;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: background 0.3s;
-        }
-        
-        nav a:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .hero {
-            padding: 3rem 1rem;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .filters {
-            padding: 1rem;
-            background: rgba(255,255,255,0.05);
-            margin: 1rem auto;
-            max-width: 800px;
-            border-radius: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-        
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            background: rgba(0,195,255,0.1);
-            color: var(--light);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-            color: var(--dark);
-        }
-        
-        .vehicle-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            padding: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .vehicle-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(0,195,255,0.1);
-        }
-        
-        .vehicle-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,195,255,0.1);
-            border-color: rgba(0,195,255,0.3);
-        }
-        
-        .vehicle-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .price-tag {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--accent);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        
-        .vehicle-info {
-            padding: 1.5rem;
-        }
-        
-        .vehicle-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-        
-        .vehicle-info .type {
-            color: var(--accent);
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        
-        .vehicle-info p {
-            margin-bottom: 1rem;
-            color: rgba(240,248,255,0.7);
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .gallery-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .gallery-content {
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-        }
-        
-        .gallery-main-img {
-            width: 100%;
-            max-height: 70vh;
-            object-fit: contain;
-        }
-        
-        .gallery-thumbnails {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-        }
-        
-        .gallery-thumb {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        
-        .gallery-thumb:hover, .gallery-thumb.active {
-            opacity: 1;
-        }
-        
-        .close-gallery {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-        }
-        
-        .contact {
-            padding: 3rem 1rem;
-            max-width: 600px;
-            margin: 2rem auto;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-        }
-        
-        .contact h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .contact-form {
-            display: grid;
-            gap: 1rem;
-        }
-        
-        .form-group {
-            display: grid;
-            gap: 0.5rem;
-        }
-        
-        .form-group label {
-            font-weight: bold;
-        }
-        
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            padding: 0.8rem;
-            border-radius: 5px;
-            border: 1px solid rgba(0,195,255,0.3);
-            background: rgba(0,0,0,0.5);
-            color: white;
-        }
-        
-        footer {
-            background: linear-gradient(135deg, var(--secondary), var(--dark));
-            padding: 2rem 1rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-        }
-        
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 600px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .vehicle-gallery {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <meta name="description" content="Explore futuristic vehicles with Universal Modern Ride - AI-driven cars, hoverbikes, and VTOL flying vehicles">
+    <title>Universal Modern Ride | Futuristic Vehicle Marketplace</title>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" as="style">
+    <link rel="preload" href="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" as="image">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Preconnect to CDNs -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
 </head>
 <body>
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+    
+    <!-- Header -->
     <header>
-        <div class="logo">Future Rides</div>
-        <nav>
-            <a href="#vehicles">Vehicles</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
+        <nav aria-label="Main navigation">
+            <div class="logo" aria-label="Universal Modern Ride">Universal Modern Ride</div>
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#showroom">Showroom</a>
+                <a href="#customize">Customize</a>
+                <a href="#repairs">Repairs</a>
+                <a href="#test-drive">Test Drive</a>
+                <a href="#community">Community</a>
+                <a href="#contact">Contact</a>
+            </div>
         </nav>
     </header>
-    
-    <section class="hero">
-        <h1>Explore Tomorrow's Vehicles Today</h1>
-        <p>Discover our lineup of cutting-edge transportation solutions with transparent pricing</p>
-    </section>
-    
-    <section id="vehicles">
-        <div class="filters">
-            <button class="filter-btn active" data-filter="all">All Vehicles</button>
-            <button class="filter-btn" data-filter="car">Cars</button>
-            <button class="filter-btn" data-filter="bike">Bikes</button>
-            <button class="filter-btn" data-filter="flying">Flying</button>
-        </div>
-        
-        <div class="vehicle-gallery">
-            <!-- Vehicle 1 -->
-            <div class="vehicle-card" data-type="car">
-                <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
-                    <span class="price-tag">$89,999</span>
-                </div>
-                <div class="vehicle-info">
-                    <h3>Nexus X-2000</h3>
-                    <span class="type">Autonomous Electric Car</span>
-                    <p>Self-driving luxury sedan with 400-mile range and AI assistant</p>
-                    <button class="btn view-gallery" data-vehicle="nexus">View Gallery</button>
-                    <button class="btn">Inquire</button>
-                </div>
-            </div>
-            
-            <!-- Vehicle 2 -->
-            <div class="vehicle-card" data-type="bike">
-                <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
-                    <span class="price-tag">$32,500</span>
-                </div>
-                <div class="vehicle-info">
-                    <h3>HoverBike S1</h3>
-                    <span class="type">Electric Levitating Bike</span>
-                    <p>Zero-emission personal transport with 150-mile range</p>
-                    <button class="btn view-gallery" data-vehicle="hoverbike">View Gallery</button>
-                    <button class="btn">Inquire</button>
-                </div>
-            </div>
-            
-            <!-- Vehicle 3 -->
-            <div class="vehicle-card" data-type="flying">
-                <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
-                    <span class="price-tag">$249,999</span>
-                </div>
-                <div class="vehicle-info">
-                    <h3>AeroV Mark 3</h3>
-                    <span class="type">Personal Flying Vehicle</span>
-                    <p>VTOL aircraft with 250-mile range and autonomous controls</p>
-                    <button class="btn view-gallery" data-vehicle="aerov">View Gallery</button>
-                    <button class="btn">Inquire</button>
-                </div>
-            </div>
-            
-            <!-- Vehicle 4 -->
-            <div class="vehicle-card" data-type="car">
-                <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
-                    <span class="price-tag">$65,750</span>
-                </div>
-                <div class="vehicle-info">
-                    <h3>Solaris E-Cruiser</h3>
-                    <span class="type">Solar-Powered SUV</span>
-                    <p>Self-charging electric SUV with integrated solar panels</p>
-                    <button class="btn view-gallery" data-vehicle="solaris">View Gallery</button>
-                    <button class="btn">Inquire</button>
-                </div>
-            </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>The Future of Mobility is Here</h1>
+            <p>Experience the next generation of transportation with our cutting-edge vehicles. From AI-driven cars to VTOL flying vehicles, we're redefining how you move.</p>
+            <a href="#showroom" class="cta-button">Explore Vehicles</a>
         </div>
     </section>
-    
-    <div class="gallery-modal" id="gallery">
-        <div class="gallery-content">
-            <span class="close-gallery">&times;</span>
-            <img class="gallery-main-img" id="main-gallery-img" src="" alt="">
-            <div class="gallery-thumbnails" id="gallery-thumbs"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Vehicle Categories -->
+        <section class="categories" id="categories">
+            <h2 class="section-title">Our Vehicle Lineup</h2>
+            <div class="category-grid">
+                <article class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');" 
+                         aria-label="Futuristic car"></div>
+                    <div class="category-info">
+                        <h3>Futuristic Cars</h3>
+                        <p>Autonomous, solar-powered, and hydrogen-fueled vehicles with AI co-pilots and self-healing exteriors.</p>
+                        <a href="#showroom" class="cta-button">View Models</a>
+                    </div>
+                </article>
+                
+                <article class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');" 
+                         aria-label="Smart motorbike"></div>
+                    <div class="category-info">
+                        <h3>Smart Motorbikes</h3>
+                        <p>Self-balancing hoverbikes, electric speedsters with AR helmets, and AI-controlled cruisers.</p>
+                        <a href="#showroom" class="cta-button">View Models</a>
+                    </div>
+                </article>
+                
+                <article class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');" 
+                         aria-label="Flying car"></div>
+                    <div class="category-info">
+                        <h3>Flying Cars (VTOLs)</h3>
+                        <p>Urban air mobility solutions that let you soar above traffic with ease and safety.</p>
+                        <a href="#showroom" class="cta-button">View Models</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 3D Showroom Section -->
+        <section class="showroom" id="showroom">
+            <h2 class="section-title">Immersive 3D Showroom</h2>
+            <div class="showroom-container">
+                <div class="vehicle-viewer" id="vehicle-viewer">
+                    <div class="loader" aria-hidden="true"></div>
+                    <div id="3d-container" style="width: 100%; height: 100%;" aria-live="polite"></div>
+                </div>
+                <div class="vehicle-controls">
+                    <button class="cta-button" id="rotate-btn">Rotate</button>
+                    <button class="cta-button" id="interior-btn">Interior View</button>
+                    <button class="cta-button" id="vr-btn">VR Mode</button>
+                    <button class="cta-button" id="ar-btn">AR Preview</button>
+                </div>
+                <div class="vehicle-selector" role="tablist">
+                    <button class="vehicle-option active" data-model="car" role="tab" aria-selected="true">Nexus X-2000 (Car)</button>
+                    <button class="vehicle-option" data-model="bike" role="tab" aria-selected="false">HoverBike S1</button>
+                    <button class="vehicle-option" data-model="vtol" role="tab" aria-selected="false">AeroV Mark 3 (VTOL)</button>
+                    <button class="vehicle-option" data-model="solar" role="tab" aria-selected="false">Solaris E-Cruiser</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customization Section -->
+        <section class="customization" id="customize">
+            <h2 class="section-title">Build Your Dream Vehicle</h2>
+            <div class="customization-grid">
+                <div class="customization-preview" id="custom-preview">
+                    <div class="loader" aria-hidden="true"></div>
+                    <div id="custom-3d-container" style="width: 100%; height: 100%;" aria-live="polite"></div>
+                </div>
+                <div class="customization-options">
+                    <fieldset class="option-group">
+                        <legend><h4>Exterior</h4></legend>
+                        <div class="option-buttons">
+                            <button class="option-button active" data-color="0x3498db">Quantum Blue</button>
+                            <button class="option-button" data-color="0xe74c3c">Solar Flare</button>
+                            <button class="option-button" data-color="0x2c3e50">Midnight Black</button>
+                            <button class="option-button" data-color="0x9b59b6">Chameleon Coat</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="option-group">
+                        <legend><h4>Interior</h4></legend>
+                        <div class="option-buttons">
+                            <button class="option-button active" data-interior="leather">Neo-Leather</button>
+                            <button class="option-button" data-interior="mesh">Zero-G Mesh</button>
+                            <button class="option-button" data-interior="holographic">Holographic Weave</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="option-group">
+                        <legend><h4>Performance</h4></legend>
+                        <div class="option-buttons">
+                            <button class="option-button active" data-performance="standard">Standard</button>
+                            <button class="option-button" data-performance="boost">Boost Package</button>
+                            <button class="option-button" data-performance="hyper">Hyperdrive</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Drive Section -->
+        <section class="test-drive" id="test-drive">
+            <h2 class="section-title">Experience the Future</h2>
+            <p>Book a virtual or in-person test drive with our cutting-edge vehicles.</p>
+            <div class="test-drive-options">
+                <article class="test-drive-card">
+                    <h3>Virtual Reality Test</h3>
+                    <p>Experience our vehicles in fully immersive VR from anywhere.</p>
+                    <button class="cta-button test-drive-btn">Book VR Session</button>
+                </article>
+                <article class="test-drive-card">
+                    <h3>Augmented Reality Demo</h3>
+                    <p>Preview vehicles in your own space using AR technology.</p>
+                    <button class="cta-button test-drive-btn">Try AR Mode</button>
+                </article>
+                <article class="test-drive-card">
+                    <h3>In-Person Experience</h3>
+                    <p>Visit our flagship showroom for a real-world test drive.</p>
+                    <button class="cta-button test-drive-btn">Schedule Visit</button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Universal Modern Ride</h3>
+                <p>Redefining mobility for the 22nd century and beyond.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#showroom">Showroom</a></li>
+                    <li><a href="#customize">Customize</a></li>
+                    <li><a href="#test-drive">Test Drive</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email" required aria-label="Email for newsletter">
+                    <button type="submit" class="cta-button">Subscribe</button>
+                </form>
+            </div>
         </div>
-    </div>
-    
-    <section class="contact" id="contact">
-        <h2>Contact Us</h2>
-        <form class="contact-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone">
-            </div>
-            <div class="form-group">
-                <label for="vehicle">Vehicle Interest</label>
-                <select id="vehicle">
-                    <option value="">Select a vehicle</option>
-                    <option value="nexus">Nexus X-2000</option>
-                    <option value="hoverbike">HoverBike S1</option>
-                    <option value="aerov">AeroV Mark 3</option>
-                    <option value="solaris">Solaris E-Cruiser</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn">Send Inquiry</button>
-        </form>
-    </section>
-    
-    <footer>
-        <div class="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Financing</a>
-            <a href="#">Test Drives</a>
-            <a href="#">Careers</a>
-            <a href="#">Privacy Policy</a>
+        <div class="copyright">
+            <p>&copy; <span id="current-year">2023</span> Universal Modern Ride. All rights reserved.</p>
         </div>
-        <p>© 2023 Future Rides. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Vehicle image galleries
-        const galleries = {
-            nexus: [
-                'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1547038577-da80abbc4f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
-            ],
-            hoverbike: [
-                'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
-            ],
-            aerov: [
-                'https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1433840496881-cbd845929862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
-            ],
-            solaris: [
-                'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
-            ]
-        };
+    <!-- Modal for AR/VR -->
+    <div class="modal" id="xr-modal">
+        <span class="close-modal" aria-label="Close modal">&times;</span>
+        <div class="modal-content" id="xr-container"></div>
+    </div>
 
-        // DOM elements
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const vehicleCards = document.querySelectorAll('.vehicle-card');
-        const galleryModal = document.querySelector('.gallery-modal');
-        const mainGalleryImg = document.getElementById('main-gallery-img');
-        const galleryThumbs = document.getElementById('gallery-thumbs');
-        const closeGallery = document.querySelector('.close-gallery');
-        const viewGalleryButtons = document.querySelectorAll('.view-gallery');
-        const contactForm = document.querySelector('.contact-form');
-
-        // Filter vehicles
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                const filter = button.dataset.filter;
-                
-                // Filter vehicles
-                vehicleCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.type === filter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // Gallery functionality
-        viewGalleryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const vehicle = button.dataset.vehicle;
-                openGallery(vehicle);
-            });
-        });
-
-        function openGallery(vehicle) {
-            const images = galleries[vehicle];
-            
-            // Clear previous thumbnails
-            galleryThumbs.innerHTML = '';
-            
-            // Set main image
-            mainGalleryImg.src = images[0];
-            
-            // Create thumbnails
-            images.forEach((img, index) => {
-                const thumb = document.createElement('img');
-                thumb.src = img;
-                thumb.className = 'gallery-thumb' + (index === 0 ? ' active' : '');
-                thumb.addEventListener('click', () => {
-                    // Update main image
-                    mainGalleryImg.src = img;
-                    
-                    // Update active thumbnail
-                    document.querySelectorAll('.gallery-thumb').forEach(t => {
-                        t.classList.remove('active');
-                    });
-                    thumb.classList.add('active');
-                });
-                galleryThumbs.appendChild(thumb);
-            });
-            
-            // Show modal
-            galleryModal.style.display = 'flex';
-        }
-
-        closeGallery.addEventListener('click', () => {
-            galleryModal.style.display = 'none';
-        });
-
-        galleryModal.addEventListener('click', (e) => {
-            if (e.target === galleryModal) {
-                galleryModal.style.display = 'none';
-            }
-        });
-
-        // Contact form submission
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const vehicle = document.getElementById('vehicle').value;
-            
-            // Simple validation
-            if (name && email) {
-                alert(`Thank you ${name}! We've received your inquiry about ${vehicle || 'our vehicles'}. We'll contact you at ${email} soon.`);
-                contactForm.reset();
-            } else {
-                alert('Please fill in all required fields.');
-            }
-        });
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
